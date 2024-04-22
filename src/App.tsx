@@ -1,5 +1,5 @@
 import './App.css'
-import {useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import * as axios from "axios";
 
 
@@ -18,7 +18,7 @@ function App() {
 
 
     // möglicherweise für die veränderung des status notwendig?
-    const [data, setData] = useState<Todo[]>([])
+    const [todo, setTodo] = useState<Todo[]>([])
 
     // möglicherweise für die Übergabe des Status notwendig?
     const [status, setStatus] = useState<Todo.status>(status.open)
@@ -46,13 +46,15 @@ function App() {
     function SubmitTodo(props) {
         const [todo, setTodo] = useState("");
 
-
-        const handleSubmit = (event) => {
-            alert("A todo was submitted: " + todo);
-            event.preventDefault();
-        };
     }
-
+        function handleCreateTodo(event: ChangeEvent<HTMLInputElement>) {
+            console.log(event.target.value)
+            setTodo(event.target.value)   // muss ich hier nicht auch id und status übergeben?
+        }
+        function handleSubmit(event: FormEvent<HTMLFormElement>) {
+            event.preventDefault();
+            alert("Todo was submitted: " + todo)
+        }
 
     return (
         <>
@@ -66,11 +68,11 @@ function App() {
       </div>
             <div>
                 <form onSubmit={handleSubmit}>
-                    <label>Add Todo:
+                    <label>Todo:
                     <input
                         type="text"
                         value={todo}
-                        onChange={event => setTodo(event.target.value)}
+                        onChange={handleCreateTodo}
                         />
                     </label>
                     <button>Submit</button>
