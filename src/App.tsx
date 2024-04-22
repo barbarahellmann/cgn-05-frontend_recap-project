@@ -42,15 +42,15 @@ function App() {
     }
 
 
-    // neues Todo übergeben
-    function SubmitTodo(props) {
-        const [todo, setTodo] = useState("");
+    // neues Todo eingeben
 
-    }
+    // Übergibt die Daten vom Input Feld um ein neues Todo zu erstellen
         function handleCreateTodo(event: ChangeEvent<HTMLInputElement>) {
             console.log(event.target.value)
             setTodo(event.target.value)   // muss ich hier nicht auch id und status übergeben?
         }
+
+    // Stellt sicher, dass die Seite nicht immer neu geladen wird
         function handleSubmit(event: FormEvent<HTMLFormElement>) {
             event.preventDefault();
             alert("Todo was submitted: " + todo)
@@ -58,15 +58,17 @@ function App() {
 
     return (
         <>
-      <div>
-            <h1>Todo-App</h1>
-                 {data.length === 0 ? <h1>NO DATA</h1>: <ul>
-                   {data.map((todo: Todo) => {
-                       return <li key={Todo.id}>{Todo.description} {Todo.status}</li>
-                   })}
-                 </ul>}
-      </div>
-            <div>
+          <div>
+                <h1>Todo-App</h1>
+                     {data.length === 0 ? <h1>NO DATA</h1>: <ul>
+                       {data.map((todo: Todo) => {
+                           return <li key={Todo.id}>{Todo.description} {Todo.status}</li>
+                       })}
+                     </ul>}
+          </div>
+
+          <!-- Neues 'Todo' übergeben   -->
+          <div>
                 <form onSubmit={handleSubmit}>
                     <label>Todo:
                     <input
@@ -77,7 +79,7 @@ function App() {
                     </label>
                     <button>Submit</button>
                 </form>
-            </div>
+          </div>
     </>
   )
 }
