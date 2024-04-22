@@ -6,21 +6,29 @@ import * as axios from "axios";
 
 
 
-type Todo = {
-    id: number
-    description: string;
-    status: string // literals klappt leider nicht= "open" || "inProgress“ || “done“
-}
-
 function App() {
 
-    const [data, setData] = useState<Todo[]>([])
-    const [status, setStatus] = useState<Todo.status>("open")
+    // Todo definieren: als const oder type?
 
+    type Todo = {
+        id: number
+        description: string;
+        status: "open" | "inProgress“ | “done“ "
+    }
+
+
+    // möglicherweise für die veränderung des status notwendig?
+    const [data, setData] = useState<Todo[]>([])
+
+    // möglicherweise für die Übergabe des Status notwendig?
+    const [status, setStatus] = useState<Todo.status>(status.open)
+
+    // möglicherweise für den seitenwechsel notwendig?
     function updatePage(number: number) {
         setPage(number);
     }
 
+    // möglicherweise für das update der Datenbank notwendig?
     useEffect(() => {
         fetchData(page)
     }, [page])
@@ -30,9 +38,20 @@ function App() {
             setData(response.data.data)
         }).catch((error => {
             console.log(error.message)
-        })
+        }))
     }
 
+
+    // neues Todo übergeben
+    function SubmitTodo(props) {
+        const [todo, setTodo] = useState("");
+
+
+        const handleSubmit = (event) => {
+            alert("A todo was submitted: " + todo);
+            event.preventDefault();
+        };
+    }
 
 
     return (
@@ -45,6 +64,18 @@ function App() {
                    })}
                  </ul>}
       </div>
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <label>Add Todo:
+                    <input
+                        type="text"
+                        value={todo}
+                        onChange={event => setTodo(event.target.value)}
+                        />
+                    </label>
+                    <button>Submit</button>
+                </form>
+            </div>
     </>
   )
 }
