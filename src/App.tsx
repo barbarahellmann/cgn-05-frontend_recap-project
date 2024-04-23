@@ -2,6 +2,10 @@ import './App.css'
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import * as axios from "axios";
 import TodoCard from "./components/Todo.tsx";
+import {Link, Route, Routes} from "react-router-dom";
+import Open from "./pages/open.tsx";
+import InProgress from "./pages/inProgress.tsx";
+import Done from "./pages/done.tsx";
 
 
 
@@ -59,29 +63,35 @@ function App() {
 
     return (
         <>
-          <div>
+            <div>
                 <h1>Todo-App</h1>
+                <Routes>
+                    <Route path="/open" element={<Open/>}/>
+                    <Route path="/inProgress" element={<InProgress/>}/>
+                    <Route path="/done" element={<Done/>}/>
+                </Routes>
+            </div>
 
-              {data.length === 0 ? <h1>NO DATA</h1>:
-                       {data.map((Todo: Todo) => {
-                           return TodoCard})}}
-          </div>
-
-          <!-- Neues 'Todo' eingeben   -->
-          <div>
+            <div>
                 <form onSubmit={handleSubmit}>
                     <label>Neues Todo:
-                    <input
-                        type="text"
-                        value={todo}
-                        onChange={handleCreateTodo}
+                        <input
+                            type="text"
+                            value={todo}
+                            onChange={handleCreateTodo}
                         />
                     </label>
                     <button>Submit</button>
                 </form>
-          </div>
-    </>
-  )
-}
+            </div>
+            <div>
+                <h3>Navigation</h3>
+                <Link to="/open">Open</Link>
+                <Link to="/inProgress">In Progress</Link>
+                <Link to="/done">Done</Link>
+            </div>
+            <div>
+            </div>
+        </>
 
-export default App
+    export default App
