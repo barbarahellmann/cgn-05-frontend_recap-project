@@ -11,7 +11,7 @@ type TodopProps = {
 
 
 
-export function TodoCard() {
+export function TodoCard(Todo: Todo) {
     return <li key={Todo.id}>
         <h3>{Todo.description}</h3>
         <h3>{Todo.status}</h3>

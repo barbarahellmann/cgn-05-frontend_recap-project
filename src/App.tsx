@@ -23,15 +23,6 @@ function App() {
 
 
     // Daten einmalig aus dem Backend holen
-    useEffect(() => {
-        axios.get("/api/todo/")
-            .then(response => setTodo(response.data))
-    }, [])
-
-
-
-    // Daten aus dem Backend holen
-
     function fetchData(page: number){
         axios.get("/api/todo/" + Todo.id).then((response) => {
             setData(response.data.data)
@@ -40,23 +31,23 @@ function App() {
         }))
     }
 
-    axios.get("/api/todo/")
-        .then(response => setTodo(response.data))
-
 
     // neues Todo eingeben
 
     // Übergibt die Daten vom Input Feld um ein neues Todo zu erstellen
         function handleCreateTodo(event: ChangeEvent<HTMLInputElement>) {
             console.log(event.target.value)
+            axios.post("/api/todo/", Todo).then(r =>
             setTodo(event.target.value)   // muss ich hier nicht auch id und status übergeben?
-        }
+            )}
 
     // Stellt sicher, dass die Seite nicht immer neu geladen wird
         function handleSubmit(event: FormEvent<HTMLFormElement>) {
             event.preventDefault();
             alert("Todo was submitted: " + Todo)
         }
+
+
 
     return (
         <>
