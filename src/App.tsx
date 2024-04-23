@@ -1,6 +1,7 @@
 import './App.css'
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import * as axios from "axios";
+import TodoCard from "./components/Todo.tsx";
 
 
 
@@ -60,17 +61,16 @@ function App() {
         <>
           <div>
                 <h1>Todo-App</h1>
-                     {data.length === 0 ? <h1>NO DATA</h1>: <ul>
-                       {data.map((todo: Todo) => {
-                           return <li key={Todo.id}>{Todo.description} {Todo.status}</li>
-                       })}
-                     </ul>}
+
+              {data.length === 0 ? <h1>NO DATA</h1>:
+                       {data.map((Todo: Todo) => {
+                           return TodoCard})}}
           </div>
 
-          <!-- Neues 'Todo' übergeben   -->
+          <!-- Neues 'Todo' eingeben   -->
           <div>
                 <form onSubmit={handleSubmit}>
-                    <label>Todo:
+                    <label>Neues Todo:
                     <input
                         type="text"
                         value={todo}
