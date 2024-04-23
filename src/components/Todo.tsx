@@ -6,7 +6,6 @@ type TodopProps ={
 }
 
 
-
 export default function TodoCard() {
     return <li key={Todo.id}>
         <h3>{Todo.description}</h3>
