@@ -6,6 +6,8 @@ import {Link, Route, Routes} from "react-router-dom";
 import Open from "./pages/open.tsx";
 import InProgress from "./pages/inProgress.tsx";
 import Done from "./pages/done.tsx";
+import {Todo} from "../Todo.tsx"
+
 
 
 
@@ -13,30 +15,20 @@ import Done from "./pages/done.tsx";
 
 function App() {
 
-    // Todo definieren: als const oder type?
+    // Notwendig für die Axios-Methode um die Daten zu speichern
+    const [Todo, setTodo] = useState<Todo>([])
 
-    type Todo = {
-        id: number
-        description: string;
-        status: "open" | "inProgress“ | “done“ "
-    }
-
-
-    // möglicherweise für die veränderung des status notwendig?
-    const [todo, setTodo] = useState<Todo[]>([])
-
-    // möglicherweise für die Übergabe des Status notwendig?
+    // ??möglicherweise für die Übergabe des Status notwendig?
     const [status, setStatus] = useState<Todo.status>(status.open)
 
-    // möglicherweise für den seitenwechsel notwendig?
-    function updatePage(number: number) {
-        setPage(number);
-    }
 
-    // möglicherweise für das update der Datenbank notwendig?
+    // ?? möglicherweise für das update der Datenbank notwendig?
     useEffect(() => {
         fetchData(page)
     }, [page])
+
+
+    // Daten aus dem Backend holen
 
     function fetchData(page: number){
         axios.get("/api/todo/" + Todo.id).then((response) => {
@@ -45,6 +37,9 @@ function App() {
             console.log(error.message)
         }))
     }
+
+    axios.get("/api/todo/")
+        .then(response => setTodo(response.data))
 
 
     // neues Todo eingeben
@@ -58,7 +53,7 @@ function App() {
     // Stellt sicher, dass die Seite nicht immer neu geladen wird
         function handleSubmit(event: FormEvent<HTMLFormElement>) {
             event.preventDefault();
-            alert("Todo was submitted: " + todo)
+            alert("Todo was submitted: " + Todo)
         }
 
     return (
@@ -77,7 +72,7 @@ function App() {
                     <label>Neues Todo:
                         <input
                             type="text"
-                            value={todo}
+                            value={Todo}
                             onChange={handleCreateTodo}
                         />
                     </label>
