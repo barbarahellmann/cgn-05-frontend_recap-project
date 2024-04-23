@@ -22,10 +22,12 @@ function App() {
     const [status, setStatus] = useState<Todo.status>(status.open)
 
 
-    // ?? möglicherweise für das update der Datenbank notwendig?
+    // Daten einmalig aus dem Backend holen
     useEffect(() => {
-        fetchData(page)
-    }, [page])
+        axios.get("/api/todo/")
+            .then(response => setTodo(response.data))
+    }, [])
+
 
 
     // Daten aus dem Backend holen
